@@ -1,0 +1,33 @@
+[package]
+name = "coordination-2021"
+version = "0.1.0"
+authors = ["Zak Cutner <me@zakcutner.uk>"]
+edition = "2018"
+repository = "https://github.com/zakcutner/coordination-2021"
+publish = false
+
+[lib]
+bench = false
+
+[[bench]]
+name = "double_buffering"
+harness = false
+
+[[bench]]
+name = "ring"
+harness = false
+
+[[bench]]
+name = "three_adder"
+harness = false
+
+[dependencies]
+futures = "0.3"
+mpstthree = { git = "https://github.com/NicolasLagaillardie/mpst_rust_github", rev = "ad4983d9" }
+rumpsteak = { git = "https://github.com/zakcutner/rumpsteak.git", rev = "eb515a3" }
+rumpsteak-oneshot = { git = "https://github.com/zakcutner/rumpsteak.git", rev = "eb515a3" }
+tokio = { version = "1.5", features = ["time"] }
+
+[dev-dependencies]
+criterion = "0.3"
+tokio = { version = "1.5", features = ["macros", "rt", "time"] }
