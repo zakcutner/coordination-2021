@@ -23,11 +23,11 @@ harness = false
 
 [dependencies]
 futures = "0.3"
-mpstthree = { git = "https://github.com/NicolasLagaillardie/mpst_rust_github", rev = "ad4983d9" }
-rumpsteak = { git = "https://github.com/zakcutner/rumpsteak.git", rev = "eb515a3" }
-rumpsteak-oneshot = { git = "https://github.com/zakcutner/rumpsteak.git", rev = "eb515a3" }
-tokio = { version = "1.5", features = ["time"] }
+mpstthree = { git = "https://github.com/NicolasLagaillardie/mpst_rust_github", rev = "b730734" }
+rumpsteak = { git = "https://github.com/zakcutner/rumpsteak.git", rev = "6cc5da3" }
+rumpsteak-oneshot = { git = "https://github.com/zakcutner/rumpsteak.git", rev = "6cc5da3" }
+tokio = { version = "1.6", features = ["time"] }
 
 [dev-dependencies]
 criterion = "0.3"
-tokio = { version = "1.5", features = ["macros", "rt", "time"] }
+tokio = { version = "1.6", features = ["macros", "rt", "time"] }

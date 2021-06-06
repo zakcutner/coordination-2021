@@ -19,12 +19,12 @@ pub fn bench_frameworks(criterion: &mut Criterion) {
     });
 
     group.bench_function("mpstthree", |bencher| {
-        use mpstthree::fork_mpst;
+        use mpstthree::fork::fork_mpst;
         use three_adder::mpstthree::{adder_a, adder_b, adder_c};
 
         bencher.iter(|| {
             let (a, b, c) = fork_mpst(adder_a, adder_b, adder_c);
-            assert!(a.is_ok() && b.is_ok() && c.is_ok());
+            assert!(a.join().is_ok() && b.join().is_ok() && c.join().is_ok());
         });
     });
 }

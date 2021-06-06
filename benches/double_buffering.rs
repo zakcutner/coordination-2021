@@ -25,11 +25,11 @@ pub fn bench_frameworks(criterion: &mut Criterion) {
 
     group.bench_function("mpstthree", |bencher| {
         use double_buffering::mpstthree::{kernel, sink, source};
-        use mpstthree::fork_mpst;
+        use mpstthree::fork::fork_mpst;
 
         bencher.iter(|| {
             let (s, k, t) = fork_mpst(source, kernel, sink);
-            assert!(s.is_ok() && k.is_ok() && t.is_ok());
+            assert!(s.join().is_ok() && k.join().is_ok() && t.join().is_ok());
         });
     });
 }

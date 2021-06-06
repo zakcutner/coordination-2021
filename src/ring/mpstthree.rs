@@ -1,9 +1,9 @@
 use super::Value;
 use mpstthree::{
-    binary::{End, Recv, Send},
+    binary::struct_trait::{End, Recv, Send},
     functionmpst::{
         close::close_mpst,
-        recv::{recv_mpst_a_to_c, recv_mpst_b_to_a, recv_mpst_c_to_b},
+        recv::{recv_mpst_a_from_c, recv_mpst_b_from_a, recv_mpst_c_from_b},
         send::{send_mpst_a_to_b, send_mpst_b_to_c, send_mpst_c_to_a},
     },
     role::{a::RoleA, b::RoleB, c::RoleC, end::RoleEnd},
@@ -31,7 +31,7 @@ pub type EndpointC = SessionMpst<CtoA, CtoB, QueueC, RoleC<RoleEnd>>;
 pub fn ring_a(s: EndpointA) -> Result<()> {
     let x = 2;
     let s = send_mpst_a_to_b(Value(x), s);
-    let (Value(y), s) = recv_mpst_a_to_c(s)?;
+    let (Value(y), s) = recv_mpst_a_from_c(s)?;
     assert_eq!(y, 4);
     close_mpst(s)?;
     Ok(())
@@ -39,7 +39,7 @@ pub fn ring_a(s: EndpointA) -> Result<()> {
 
 pub fn ring_b(s: EndpointB) -> Result<()> {
     let x = 3;
-    let (Value(y), s) = recv_mpst_b_to_a(s)?;
+    let (Value(y), s) = recv_mpst_b_from_a(s)?;
     let s = send_mpst_b_to_c(Value(x), s);
     assert_eq!(y, 2);
     close_mpst(s)?;
@@ -48,7 +48,7 @@ pub fn ring_b(s: EndpointB) -> Result<()> {
 
 pub fn ring_c(s: EndpointC) -> Result<()> {
     let x = 4;
-    let (Value(y), s) = recv_mpst_c_to_b(s)?;
+    let (Value(y), s) = recv_mpst_c_from_b(s)?;
     let s = send_mpst_c_to_a(Value(x), s);
     assert_eq!(y, 3);
     close_mpst(s)?;
